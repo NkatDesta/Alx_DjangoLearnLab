@@ -3,10 +3,18 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from .models import Book
-from .forms import BookForm, BookSearchForm
+from .forms import ExampleForm
 
 def index(request):
     return HttpResponse("Welcome to the Book Shelf!")
+
+def example_form_view(request):
+    form = ExampleForm(request.POST or None)
+    if form.is_valid():
+        # Do something with the form data if needed
+        return HttpResponse("Form submitted successfully!")
+    return render(request, 'bookshelf/form_example.html', {'form': form})
+
 
 def search_books(request):
     form = BookSearchForm(request.GET or None)
@@ -34,5 +42,4 @@ def delete_book(request, book_id):
     if request.method == 'POST':
         book.delete()
         messages.success(request, "Book deleted successfully!")
-        return redirect('index')
-    return render(request, 'bookshelf/delete_book.html', {'book': book})
+
