@@ -135,6 +135,8 @@ LOGOUT_REDIRECT_URL = 'login'
 # SECURITY SETTINGS
 DEBUG=False
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Force HTTPS connections for all requests to secure data in transit
 SECURE_SSL_REDIRECT = True
 
