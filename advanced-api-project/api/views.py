@@ -12,7 +12,7 @@ from .serializers import BookSerializer
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]  # Anyone can view
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     #enable filtering, seraching and ordering
     filter_backends=[
@@ -39,15 +39,15 @@ class BookListView(generics.ListAPIView):
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]  # Anyone can view
+    permission_classes = [IsAuthenticatedOrReadOnly] 
 
 
 # Book Create View (POST) to create a new book.
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Authenticated users only
-
+    permission_classes = [IsAuthenticated] 
+	
     def perform_create(self, serializer):
         if serializer.validated_data['publication_year'] < 1450:
             raise ValueError("Publication year must be after the invention of the printing press.")
@@ -58,7 +58,7 @@ class BookCreateView(generics.CreateAPIView):
 class BookUpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         if serializer.validated_data['publication_year'] < 1450:
@@ -70,6 +70,7 @@ class BookUpdateView(generics.UpdateAPIView):
 class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+
 
 
