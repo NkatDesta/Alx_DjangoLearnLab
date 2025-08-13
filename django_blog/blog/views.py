@@ -154,15 +154,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class PostByTagListView(ListView):
     model = Post
-    template_name = 'blog/posts_by_tag.html'  # template to render
+    template_name = 'blog/posts_by_tag.html'
     context_object_name = 'posts'
 
     def get_queryset(self):
-        tag_name = self.kwargs.get('tag_name')
-        return Post.objects.filter(tags__name=tag_name)
-    
+        tag_slug = self.kwargs.get('tag_slug')
+        return Post.objects.filter(tags__name__iexact=tag_slug)  # case-insensitive match
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tag_name'] = self.kwargs.get('tag_name')
+        context['tag_slug'] = self.kwargs.get('tag_slug')
         return context
+
 
