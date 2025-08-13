@@ -112,7 +112,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'posts/post_list.html'
     context_object_name = 'posts'
-    ordering = ['-published_date']
+    ordering = ['-created_at']
 
 
 class PostDetailView(DetailView):
@@ -195,6 +195,7 @@ class PostByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag_slug'] = self.kwargs.get('tag_slug')
         return context
+
 
 
 
