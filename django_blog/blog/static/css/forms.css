@@ -1,0 +1,22 @@
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.errorlist {
+    color: red;
+    margin-bottom: 10px;
+    list-style-type: none;
+    padding-left: 0;
+}
