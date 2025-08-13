@@ -119,30 +119,33 @@ def delete_comment(request, comment_id):
     return redirect('post-detail', pk=comment.post.pk)
 
 
+# List all posts
 class PostListView(ListView):
     model = Post
-    template_name = 'posts/post_list.html'
+    template_name = 'blog/post_list.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
+    ordering = ['-published_date']
 
-
+# View single post
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'posts/post_detail.html'
+    template_name = 'blog/post_detail.html'
 
-
+# Create new post
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    fields = ['title', 'content', 'tags']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
+# Update post (only author can update)
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    fields = ['title', 'content', 'tags']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -152,11 +155,11 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
-
+# Delete post (only author can delete)
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    template_name = 'posts/post_confirm_delete.html'
-    success_url = reverse_lazy('post-list')
+    template_name = 'blog/post_confirm_delete.html'
+    success_url = '/'
 
     def test_func(self):
         post = self.get_object()
@@ -206,6 +209,7 @@ class PostByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag_slug'] = self.kwargs.get('tag_slug')
         return context
+
 
 
 
