@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 <h1>{{ post.title }}</h1>
 <p>{{ post.content }}</p>
 <p>By {{ post.author }} on {{ post.published_date }}</p>
@@ -41,5 +44,6 @@
 </p>
 
 {% endblock %}
+
 
 
