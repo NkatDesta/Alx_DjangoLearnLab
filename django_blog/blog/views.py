@@ -33,9 +33,17 @@ def register_view(request):
 @login_required
 def profile_view(request):
     if request.method == 'POST':
-        request.user.email = request.POST.get('email')
-        request.user.save()
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        user = request.user
+        user.username = username
+        user.email = email
+        user.save()
+        
         messages.success(request, "Profile updated successfully.")
+        return redirect('profile')
+    
     return render(request, 'registration/profile.html')
 
 
@@ -195,6 +203,7 @@ class PostByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag_slug'] = self.kwargs.get('tag_slug')
         return context
+
 
 
 
