@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 <h1>Delete Post</h1>
 <p>Are you sure you want to delete "{{ object.title }}"?</p>
 <form method="post">
@@ -8,3 +11,4 @@
 </form>
 <a href="{% url 'post-detail' object.pk %}">Cancel</a>
 {% endblock %}
+
