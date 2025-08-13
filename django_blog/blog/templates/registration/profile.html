@@ -1,15 +1,18 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'blog/base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/forms.css' %}">
-<h2>Profile</h2>
-<p>Username: {{ user.username }}</p>
-<form method="post">
-    {% csrf_token %}
-    <label>Email:</label>
-    <input type="email" name="email" value="{{ user.email }}">
-    <button type="submit">Update</button>
-</form>
-{% endblock %}
 
+{% block content %}
+<div class="container">
+    <h2>Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" value="{{ request.user.username }}">
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ request.user.email }}">
+
+        <button type="submit">Update Profile</button>
+    </form>
+</div>
+{% endblock %}
