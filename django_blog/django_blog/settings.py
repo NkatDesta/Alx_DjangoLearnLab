@@ -83,10 +83,15 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # BASE_DIR is already defined at the top of settings.py
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_blog_db',       # your database name
+        'USER': 'your_db_user',         # your PostgreSQL username
+        'PASSWORD': 'your_db_password', # your PostgreSQL password
+        'HOST': 'localhost',            # or your DB host
+        'PORT': '5432',                 # PostgreSQL default port
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -130,5 +135,6 @@ STATICFILES_DIRS=[BASE_DIR/ 'static']
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
