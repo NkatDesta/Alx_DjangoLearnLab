@@ -19,10 +19,13 @@ def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user) 
-            messages.success(request, "Registration successful.")
-            return redirect('profile')
+            form.save()
+            messages.success(request, 'Account created successfully!')
+            return redirect('login')
+    else:
+        form = RegisterForm()
+    return render(request, 'blog/register.html', {'form': form})
+
         else:
             messages.error(request, "Registration failed. Please fix the errors.")
     else:
@@ -203,6 +206,7 @@ class PostByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag_slug'] = self.kwargs.get('tag_slug')
         return context
+
 
 
 
