@@ -5,7 +5,7 @@ from .models import Post, Comment, Tag
 from taggit,forms import TagWidget
 
 class RegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField()
 
     class Meta:
         model = User
@@ -34,4 +34,5 @@ class CommentForm(forms.ModelForm):
         labels = {
             'content': ''
         }
+
 
