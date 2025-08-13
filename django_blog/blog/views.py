@@ -51,28 +51,6 @@ def profile_view(request):
 
 
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all()
-
-    if request.method == 'POST' and request.user.is_authenticated:
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.author = request.user
-            new_comment.save()
-            return redirect('post-detail', pk=post.pk)
-    else:
-        form = CommentForm()
-
-    context = {
-        'post': post,
-        'comments': comments,
-        'form': form
-    }
-    return render(request, 'blog/post_detail.html', {'post': post})
-
 
 def search_posts(request):
     query = request.GET.get('q')
@@ -209,6 +187,7 @@ class PostByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag_slug'] = self.kwargs.get('tag_slug')
         return context
+
 
 
 
