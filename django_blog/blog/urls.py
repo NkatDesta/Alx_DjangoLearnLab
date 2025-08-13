@@ -4,11 +4,11 @@ from django.contrib.auth import views as auth_views
 from blog.views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, register_view, profile_view
 
 urlpatterns = [
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='registration/logged_out.html'), name='logout'),
-    path('register/', register_view, name='register'),
-    path('profile/', profile_view, name='profile'),
-
+    path('register/', views.register_view, name='register'),
+    path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
+    path('profile/', views.profile_view, name='profile'),
+    
     path('post/', PostListView.as_view(), name='post_create'),
     path('post/new/', PostCreateView.as_view(), name='post_create'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
@@ -22,6 +22,7 @@ urlpatterns = [
     path('search/', views.search_posts, name='search_posts'),
     path('tags/<slug:tag_slug>/', views.PostByTagListView.as_view(), name='posts_by_tag'),
 ]
+
 
 
 
