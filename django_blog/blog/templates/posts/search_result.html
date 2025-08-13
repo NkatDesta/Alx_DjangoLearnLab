@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 <h2>Search Results for "{{ query }}"</h2>
 {% if results %}
     <ul>
@@ -8,3 +11,4 @@
 {% else %}
     <p>No posts found.</p>
 {% endif %}
+
