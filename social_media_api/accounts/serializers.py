@@ -1,4 +1,4 @@
-from rest_framework authtoken.models import Token,
+from rest_framework.authtoken.models import Token,
 from rest_framework import serializers
 from .models import CustomUser
 
@@ -32,4 +32,5 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         )
         Token.objects.create(user=user)
         return user
+
 
