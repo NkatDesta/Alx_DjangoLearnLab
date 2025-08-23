@@ -1,4 +1,4 @@
-
+from rest_framework authtoken.models import Token,
 from rest_framework import serializers
 from .models import CustomUser
 
@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
         return obj.following.count()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    password = serializers.CharField()
 
     class Meta:
         model = User
@@ -32,3 +32,4 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         )
         Token.objects.create(user=user)
         return user
+
